@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CSV Reconciliation</title>
+    <script src="https://unpkg.com/exceljs/dist/exceljs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="./cashFree.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+    <script type="text/javascript">
+      function Upload() {
+        var fileUpload = document.getElementById("fileUpload");
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+        if (regex.test(fileUpload.value.toLowerCase())) {
+          if (typeof FileReader != "undefined") {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              var table = document.createElement("table");
+              var rows = e.target.result.split("\n");
+              for (var i = 0; i < rows.length; i++) {
+                var cells = rows[i].split(",");
+                if (cells.length > 1) {
+                  var row = table.insertRow(-1);
+                  for (var j = 0; j < cells.length; j++) {
+                    var cell = row.insertCell(-1);
+                    cell.innerHTML = cells[j];
+                  }
+                }
+              }
+              var dvCSV = document.getElementById("dvCSV");
+              dvCSV.innerHTML = "";
+              dvCSV.appendChild(table);
+            };
+            reader.readAsText(fileUpload.files[0]);
+          } else {
+            alert("This browser does not support HTML5.");
+          }
+        } else {
+          alert("Please upload a valid CSV file.");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="heading">
+      <h1>CSV Reconciliation</h1>
+    </div>
+
+    <div class="fileBoxes">
+      <div class="containerFile">
+        <label for="csvFile1">CSV File 1:</label>
+        <input type="file" id="csvFile1" accept=".csv" />
+        <label>Transaction ID:</label>
+        <select style="width: 100px" id="transactionColumn1"></select>
+        <label>Status:</label>
+        <select style="width: 100px" id="statusColumn1"></select>
+        <label>Amount:</label>
+        <select style="width: 100px" id="amountColumn1"></select>
+      </div>
+      <div class="containerFile">
+        <label for="csvFile2">CSV File 2:</label>
+        <input type="file" id="csvFile2" accept=".csv" />
+        <label>Transaction ID:</label>
+        <select style="width: 100px" id="transactionColumn2"></select>
+        <label>Status:</label>
+        <select style="width: 100px" id="statusColumn2"></select>
+        <label>Amount:</label>
+        <select style="width: 100px" id="amountColumn2"></select>
+      </div>
+      
+    </div>
+    <div class="button"><button onclick="processFiles()">Process CSV Files</button></div>
+  </body>
+</html>
