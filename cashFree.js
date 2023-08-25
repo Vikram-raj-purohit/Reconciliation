@@ -231,7 +231,15 @@ function populateColumnOptions(headers, transactionColumnSelect, statusColumnSel
         orderDataMap[orderID].amount2 += amount;
       }
     });
-  
+  const csvFilePath1 = csvFile1.value; // Assuming csvFile2.value contains the file path
+    const startIndex = csvFilePath1.lastIndexOf('\\') + 1; // Find the last backslash
+    const endIndex = csvFilePath1.lastIndexOf('.'); // Find the last dot
+    const fileName1 = csvFilePath1.substring(startIndex, endIndex);
+    const csvFilePath2 = csvFile2.value; // Assuming csvFile2.value contains the file path
+    const startIndex2 = csvFilePath2.lastIndexOf('\\') + 1; // Find the last backslash
+    const endIndex2 = csvFilePath2.lastIndexOf('.'); // Find the last dot
+    const fileName2 = csvFilePath2.substring(startIndex2, endIndex2);
+      
         // Reconcile the order statuses and amounts between CF and CFGT
         const reconciledData = [];
   Object.keys(orderDataMap).forEach((orderID) => {
@@ -251,13 +259,13 @@ function populateColumnOptions(headers, transactionColumnSelect, statusColumnSel
       row.amount1 = amount1 || '';
       row.amount2 = amount2 || '';
     } else if (status1) {
-      row.reconciliation_reason = 'Order ID not found in CFGT';
+      row.reconciliation_reason = `Order ID not found in ${fileName1}`;
       row.status1 = status1;
       row.status2 = '';
       row.amount1 = amount1 || '';
       row.amount2 = '';
     } else {
-      row.reconciliation_reason = 'Order ID not found in CF';
+      row.reconciliation_reason = `Order ID not found in ${fileName2}`ss;
       row.status1 = '';
       row.status2 = status2;
       row.amount1 = '';
