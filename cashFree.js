@@ -265,7 +265,7 @@ function populateColumnOptions(headers, transactionColumnSelect, statusColumnSel
       row.amount1 = amount1 || '';
       row.amount2 = '';
     } else {
-      row.reconciliation_reason = `Order ID not found in ${fileName2}`ss;
+      row.reconciliation_reason = `Order ID not found in ${fileName2}`;
       row.status1 = '';
       row.status2 = status2;
       row.amount1 = '';
