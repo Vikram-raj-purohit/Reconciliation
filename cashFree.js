@@ -5,14 +5,14 @@ function populateColumnOptions(headers, transactionColumnSelect, transactionColu
     transactionColumnSelectalternate.innerHTML = '';
     statusColumnSelect.innerHTML = '';
     amountColumnSelect.innerHTML = '';
-    // filterColumnSelect.innerHTML = '';
+   
   
     headers.forEach((header, index) => {
       const transactionOption = document.createElement('option');
       const transactionOptionalternate = document.createElement('option');
       const statusOption = document.createElement('option');
       const amountOption = document.createElement('option');
-      // const filterOption = document.createElement('option');
+     
       
       transactionOption.value = header; // Use header value instead of index
       transactionOption.text = header;
@@ -22,38 +22,16 @@ function populateColumnOptions(headers, transactionColumnSelect, transactionColu
       statusOption.text = header;
       amountOption.value = header; // Use header value instead of index
       amountOption.text = header;
-      // filterOption.value = header; // Use header value instead of index
-      // filterOption.text = header;
-  
+     
+
       transactionColumnSelect.appendChild(transactionOption);
       transactionColumnSelectalternate.appendChild(transactionOptionalternate);
       statusColumnSelect.appendChild(statusOption);
       amountColumnSelect.appendChild(amountOption);
-      // filterColumnSelect.appendChild(filterOption);
+      
     });
   }
   
-  // function populateFilterOptions(contents, filterSelect, heading) {
-  //   const rows = contents.split('\n');
-  //   const headers = rows[0].split(',');
-
-  //   const headingIndex = headers.findIndex((header) => header === heading);
-  //   if (headingIndex === -1) {
-  //     return;
-  //   }
-
-  //   const uniqueValues = [...new Set(rows.slice(1).map((row) => row.split(',')[headingIndex]))];
-
-  //   filterSelect.innerHTML = '';
-
-  //   for (let j = 0; j < uniqueValues.length; j++) {
-  //     const option = document.createElement('option');
-  //     option.value = uniqueValues[j];
-  //     option.textContent = uniqueValues[j];
-  //     filterSelect.appendChild(option);
-  //   }
-  // }
-
   
   function handleFileSelection(event, fileNumber) {
     const file = event.target.files[0];
@@ -62,51 +40,73 @@ function populateColumnOptions(headers, transactionColumnSelect, transactionColu
       const contents = e.target.result;
       const data = parseCSV(contents);
       const headers = Object.keys(data[0]);
-
+      console.log(headers)
   
       if (fileNumber === 1) {
         transactionColumnSelect1 = document.getElementById('transactionColumn1');
         transactionColumnAlternate1 = document.getElementById('transactionColumnalternate1');
         statusColumnSelect1 = document.getElementById('statusColumn1');
         amountColumnSelect1 = document.getElementById('amountColumn1');
-        // filterHeadingSelect1 = document.getElementById('filterHeading1');
-        // filterSelect1 = document.getElementById('filterSelect1');
+       
         populateColumnOptions(headers, transactionColumnSelect1, transactionColumnAlternate1, statusColumnSelect1, amountColumnSelect1);
       } else if (fileNumber === 2) {
         transactionColumnSelect2 = document.getElementById('transactionColumn2');
         transactionColumnalternate2 = document.getElementById('transactionColumnalternate2');
         statusColumnSelect2 = document.getElementById('statusColumn2');
         amountColumnSelect2 = document.getElementById('amountColumn2');
-        // filterHeadingSelect2 = document.getElementById('filterHeading2');
-        // filterSelect2 = document.getElementById('filterSelect2');
+       
         populateColumnOptions(headers, transactionColumnSelect2, transactionColumnalternate2, statusColumnSelect2, amountColumnSelect2);
       }
+      else if (fileNumber === 3) {
+        transactionColumnSelect3 = document.getElementById('transactionColumn3');
+        transactionColumnalternate3 = document.getElementById('transactionColumnalternate3');
+        statusColumnSelect3 = document.getElementById('statusColumn3');
+        amountColumnSelect3 = document.getElementById('amountColumn3');
+       
+        populateColumnOptions(headers, transactionColumnSelect3, transactionColumnalternate3, statusColumnSelect3, amountColumnSelect3);
+      }
+      else if (fileNumber === 4) {
+        transactionColumnSelect4 = document.getElementById('transactionColumn4');
+        transactionColumnalternate4 = document.getElementById('transactionColumnalternate4');
+        statusColumnSelect4 = document.getElementById('statusColumn4');
+        amountColumnSelect4 = document.getElementById('amountColumn4');
+       
+        populateColumnOptions(headers, transactionColumnSelect4, transactionColumnalternate4, statusColumnSelect4, amountColumnSelect4);
+      }
     };
-    // if (filterHeadingSelect1.value) {
-    //   populateFilterOptions(contents, filterSelect1, filterHeadingSelect1.value);
-    // }
-
-    // if (filterHeadingSelect2.value) {
-    //   populateFilterOptions(contents, filterSelect2, filterHeadingSelect2.value);
-    // }
+    
     reader.readAsText(file);
   }
-  
+ 
+
   
   document.addEventListener('DOMContentLoaded', function () {
     transactionColumnSelect1 = document.getElementById('transactionColumn1');
     transactionColumnalternate1 = document.getElementById('transactionColumnalternate1');
     statusColumnSelect1 = document.getElementById('statusColumn1');
     amountColumnSelect1 = document.getElementById('amountColumn1');
-    // filterHeadingSelect1 = document.getElementById('filterHeading1');
+   
     transactionColumnSelect2 = document.getElementById('transactionColumn2');
     transactionColumnalternate2 = document.getElementById('transactionColumnalternate2');
     statusColumnSelect2 = document.getElementById('statusColumn2');
     amountColumnSelect2 = document.getElementById('amountColumn2');
-    // filterHeadingSelect2 = document.getElementById('filterHeading2');
+
+    transactionColumnSelect3 = document.getElementById('transactionColumn3');
+    transactionColumnalternate3 = document.getElementById('transactionColumnalternate3');
+    statusColumnSelect3 = document.getElementById('statusColumn3');
+    amountColumnSelect3 = document.getElementById('amountColumn3');
+
+    transactionColumnSelect4 = document.getElementById('transactionColumn4');
+    transactionColumnalternate4 = document.getElementById('transactionColumnalternate4');
+    statusColumnSelect4 = document.getElementById('statusColumn4');
+    amountColumnSelect4 = document.getElementById('amountColumn4');
+    
     
     const csvFile1 = document.getElementById('csvFile1');
     const csvFile2 = document.getElementById('csvFile2');
+    const csvFile3 = document.getElementById('csvFile3');
+    const csvFile4 = document.getElementById('csvFile4');
+    
   
     csvFile1.addEventListener('change', function (event) {
       handleFileSelection(event, 1);
@@ -114,39 +114,37 @@ function populateColumnOptions(headers, transactionColumnSelect, transactionColu
     csvFile2.addEventListener('change', function (event) {
       handleFileSelection(event, 2);
     });
+    csvFile3.addEventListener('change', function (event) {
+      handleFileSelection(event, 3);
+    });
+    csvFile4.addEventListener('change', function (event) {
+      handleFileSelection(event, 4);
+    });
+    
   });
   
 
-  // function filterData(data, filterHeadingIndex, filterValue, transactionColumnIndex) {
-  //   if (!filterHeadingIndex || !filterValue) {
-  //     return data;
-  //   }
-  
-  //   return data.filter((row) => {
-  //     const transactionID = row[transactionColumnIndex] ? String(row[transactionColumnIndex]).trim() : '';
-  //     const headingValue = row[filterHeadingIndex] ? String(row[filterHeadingIndex]).trim() : '';
-  
-  //     return transactionID === filterValue && headingValue !== '';
-  //   });
-  // }
-  
   
         function processFiles() {
           const csvFile1 = document.getElementById('csvFile1').files[0];
           const csvFile2 = document.getElementById('csvFile2').files[0];
+          const csvFile3 = document.getElementById('csvFile3').files[0];
   
           const transactionColumnIndex1 = transactionColumnSelect1.value;
           const transactionColumnalternateIndex1 = transactionColumnalternate1.value;
     const statusColumnIndex1 = statusColumnSelect1.value;
     const amountColumnIndex1 = amountColumnSelect1.value;
-    // const filterHeadingIndex1 = filterHeadingSelect1.value;
-    // const filterValue1 = filterSelect1.value;
+    
     const transactionColumnIndex2 = transactionColumnSelect2.value;
     const transactionColumnalternateIndex2 = transactionColumnalternate2.value;
     const statusColumnIndex2 = statusColumnSelect2.value;
     const amountColumnIndex2 = amountColumnSelect2.value;
-    // const filterHeadingIndex2 = filterHeadingSelect2.value;
-    // const filterValue2 = filterSelect2.value;
+   
+    const transactionColumnIndex3 = transactionColumnSelect3.value;
+    const transactionColumnalternateIndex3 = transactionColumnalternate3.value;
+    const statusColumnIndex3 = statusColumnSelect3.value;
+    const amountColumnIndex3 = amountColumnSelect3.value;
+   
   
     if (!transactionColumnIndex1 || !statusColumnIndex1 || !amountColumnIndex1 || !transactionColumnIndex2 || !statusColumnIndex2 || !amountColumnIndex2  ) {
       alert('Please select valid transaction, amount and status columns for both CSV files.');
@@ -163,54 +161,111 @@ function populateColumnOptions(headers, transactionColumnSelect, transactionColu
       reader2.onload = function (e) {
         const contents2 = e.target.result;
         const data2 = parseCSV(contents2);
+        if (csvFile3) {   
+      const reader3 = new FileReader();
+      reader3.onload = function (e) {
+        const contents3 = e.target.result;
+        const data3 = parseCSV(contents3);
         
         const headers1 = Object.keys(data1[0]);
         const headers2 = Object.keys(data2[0]);
+        const headers3 = Object.keys(data3[0]);
   
         populateColumnOptions(headers1, transactionColumnSelect1, transactionColumnalternate1, statusColumnSelect1, amountColumnSelect1);
         populateColumnOptions(headers2, transactionColumnSelect2, transactionColumnalternate2, statusColumnSelect2, amountColumnSelect2);
+        populateColumnOptions(headers3, transactionColumnSelect3, transactionColumnalternate3, statusColumnSelect3, amountColumnSelect3);
   
         // Process the data after reading both CSV files
-        processData(data1, data2, transactionColumnIndex1, transactionColumnalternateIndex1, statusColumnIndex1, amountColumnIndex1, transactionColumnIndex2, transactionColumnalternateIndex2, statusColumnIndex2, amountColumnIndex2);
+        processData(data1, data2, data3, transactionColumnIndex1, transactionColumnalternateIndex1, statusColumnIndex1, amountColumnIndex1, transactionColumnIndex2, transactionColumnalternateIndex2, statusColumnIndex2, amountColumnIndex2, transactionColumnIndex3, transactionColumnalternateIndex3, statusColumnIndex3, amountColumnIndex3,);
+     
+     
       };
+      reader3.readAsText(csvFile3);;
+      }
+        else {
+          // Process the data without data3
+          processData(data1, data2, null, transactionColumnIndex1, transactionColumnalternateIndex1, statusColumnIndex1, amountColumnIndex1, transactionColumnIndex2, transactionColumnalternateIndex2, statusColumnIndex2, amountColumnIndex2, null, null, null, null);
+        }
+      }
       reader2.readAsText(csvFile2);;
     };
     reader1.readAsText(csvFile1);;
   }
-  
+
   function parseCSV(csvContent) {
     const rows = csvContent.split('\n');
     const data = [];
     const headers = rows[0].split(',');
   
-    for (let i = 1; i < rows.length; i++) {
-      const row = rows[i].split(',');
-      if (row.length === headers.length) {
-        const rowData = {};
-        for (let j = 0; j < headers.length; j++) {
-          rowData[headers[j]] = row[j].replace(/"/g, "");;
-        }
-        data.push(rowData);
-       
+    const updatedHeaders = [];
+    for (let i = 0; i < headers.length; i++) {
+      if (headers[i] === 'notes') {
+        updatedHeaders.push('notes.transaction_id', 'notes.txn_uuid');
+      } else {
+        updatedHeaders.push(headers[i]);
       }
     }
   
-    return data
-    ;
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i].replace(/\r/g, '').replace(/'/g, '').replace(/"/g, '').split(',');
+      if (row.length === updatedHeaders.length) {
+        const rowData = {};
+        for (let j = 0; j < updatedHeaders.length; j++) {
+          const cellData = row[j].replace(/"/g, ''); // Remove double quotes
+          if (updatedHeaders[j].startsWith('notes.')) {
+            // Handle the notes subfields
+            const subfieldName = updatedHeaders[j].split('.')[1];
+            rowData[subfieldName] = cellData.replace('{transaction_id:', ''); // Store notes as plain text
+          } else {
+            rowData[updatedHeaders[j]] = cellData.replace('{transaction_id:', '');;
+          }
+        }
+        data.push(rowData);
+      }
+    }
+  
+    return data;
   }
   
   
-  function processData(data1, data2, transactionColumnIndex1, transactionColumnalternateIndex1, statusColumnIndex1, amountColumnIndex1, transactionColumnIndex2, transactionColumnalternateIndex2, statusColumnIndex2, amountColumnIndex2) {
+  
+ async function processData(data1, data2, data3, transactionColumnIndex1, transactionColumnalternateIndex1, statusColumnIndex1, amountColumnIndex1, transactionColumnIndex2, transactionColumnalternateIndex2, statusColumnIndex2, amountColumnIndex2, transactionColumnIndex3, transactionColumnalternateIndex3, statusColumnIndex3, amountColumnIndex3,) {
     // Create a new workbook
     const workbook = new ExcelJS.Workbook();
+   
+
+    const matchedOrderIDs = new Set();
+
+    // Identify matched order IDs from data2
+    data2.forEach((row) => {
+      const orderID = String(row[transactionColumnIndex2]).trim().replace(/^winzo-|-1$/g, '').replace(/'/g, '').replace(/"/g, '');
+      matchedOrderIDs.add(orderID);
+    });
+    
+    // Filter data3 to include only matched order IDs
+    const matchedData3 = await data3 ? data3.filter((row) => {
+      const orderID = String(row[transactionColumnIndex3]).trim().replace(/'/g, '').replace(/"/g, '').replace(/^winzo-|-1$/g, '');
+      return matchedOrderIDs.has(orderID);
+    }):[]
         // Create a map of order IDs to statuses and amounts from both CSV files
         const orderDataMap = {};
   
         data1.forEach((row) => {
-          const orderID = String(row[transactionColumnIndex1]).trim().replace(/"/g, '') 
+          const orderID = String(row[transactionColumnIndex1]).trim().replace(/'/g, '').replace(/"/g, '').replace(/^winzo-|-1$/g, ''); 
           
+          const status = String(row[statusColumnIndex1]).replace(/[\r]/g, '').trim();
+         
      
           if (row[statusColumnIndex1] === "Failure") {
+        row[statusColumnIndex1] = "FAILED";
+      }
+          if (row[statusColumnIndex1] === "captured") {
+        row[statusColumnIndex1] = "SUCCESS";
+      }
+          if (row[statusColumnIndex1] === "created") {
+        row[statusColumnIndex1] = "PENDING";
+      }
+          if (row[statusColumnIndex1] === "FAILURE") {
         row[statusColumnIndex1] = "FAILED";
       }
       if (row[statusColumnIndex1] === "failed") {
@@ -229,11 +284,21 @@ function populateColumnOptions(headers, transactionColumnSelect, transactionColu
     });
   
     data2.forEach((row) => {
-      const orderID = String(row[transactionColumnIndex2]).trim().replace(/"/g, '')
-
-  
+      const orderID = String(row[transactionColumnIndex2]).trim().replace(/"/g, '').replace(/'/g, '').replace(/^winzo-|-1$/g, '');
+      
+          const status = String(row[statusColumnIndex2]).trim().replace(/[\r]/g, '');
+         
      
       if (row[statusColumnIndex2] === "Failure") {
+        row[statusColumnIndex2] = "FAILED";
+      }
+      if (row[statusColumnIndex2] === "captured") {
+        row[statusColumnIndex2] = "SUCCESS";
+      }
+          if (row[statusColumnIndex2] === "created") {
+        row[statusColumnIndex2] = "PENDING";
+      }
+      if (row[statusColumnIndex2] === "FAILURE") {
         row[statusColumnIndex2] = "FAILED";
       }
       if (row[statusColumnIndex2] === "failed") {
@@ -250,9 +315,40 @@ function populateColumnOptions(headers, transactionColumnSelect, transactionColu
         row[statusColumnIndex2] = "PENDING";
       }
     });
+
+   
+
+    matchedData3.forEach((row) => {
+      const orderID = String(row[transactionColumnIndex3]).trim().replace(/"/g, '').replace(/'/g, '').replace(/^winzo-|-1$/g, '');;
+      const status1 = String(row[statusColumnIndex3]).trim();
+      const amount1 = typeof row[amountColumnIndex3] === 'number'
+        ? row[amountColumnIndex3]
+        : row[amountColumnIndex3]
+          ? parseFloat(row[amountColumnIndex3].replace(/,/g, ''))
+          : 0;
+    
+      orderDataMap[orderID] = { status1, amount1 };
+    });
+
+    
+   // Append matched data from data3 to data1
+const appendedRows = await data1.map((row) => {
+  const orderID = String(row[transactionColumnIndex1]).trim().replace(/^winzo-|-1$/g, '') || String(row[transactionColumnalternateIndex1]).trim().replace(/"/g, '').replace(/^winzo-|-1$/g, '');
+  if (orderDataMap[orderID]) {
+    const { status1, amount1 } = orderDataMap[orderID];
+    return {
+      ...row,
+      status1: status1 || '',
+      amount1: amount1 || '',
+    };
+  }
+  return row;
+});
+   
+
   
     data1.forEach((row) => {
-      const orderID = String(row[transactionColumnIndex1]).trim() || String(row[transactionColumnalternateIndex1]).trim().replace(/"/g, '');
+      const orderID = String(row[transactionColumnIndex1]).trim().replace(/^winzo-|-1$/g, '') || String(row[transactionColumnalternateIndex1]).trim().replace(/"/g, '').replace(/^winzo-|-1$/g, '');
       const amount = typeof row[amountColumnIndex1] === 'number'
         ? row[amountColumnIndex1]
         : row[amountColumnIndex1]
@@ -264,21 +360,54 @@ function populateColumnOptions(headers, transactionColumnSelect, transactionColu
         orderDataMap[orderID].amount1 += amount;
       }
     });
+
+    const transactionStatusMap = {}; // To keep track of transaction statuses
+
+data2.forEach((row) => {
+  const orderID = String(row[transactionColumnIndex2]).trim().replace(/^winzo-|-1$/g, '') || String(row[transactionColumnalternateIndex2]).trim().replace(/"/g, '').replace(/^winzo-|-1$/g, '');
+  const status = String(row[statusColumnIndex2]).trim().replace(/[\r]/g, '');
+
+  // Check if the transaction ID exists in the map
+  if (transactionStatusMap[orderID]) {
+    // If the current status is "SUCCESS" or the existing status is "FAILED", update the status
+    if (status === "SUCCESS" || transactionStatusMap[orderID] === "USER_DROPPED") {
+      transactionStatusMap[orderID] = status;
+    }
+  } else {
+    // Otherwise, set the status to the current status
+    transactionStatusMap[orderID] = status;
+  }
+});
   
     data2.forEach((row) => {
-      const orderID = String(row[transactionColumnIndex2]).trim()  || String(row[transactionColumnalternateIndex2]).trim().replace(/"/g, '');
+      const orderID = String(row[transactionColumnIndex2]).trim().replace(/^winzo-|-1$/g, '')  || String(row[transactionColumnalternateIndex2]).trim().replace(/"/g, '').replace(/^winzo-|-1$/g, '');
+      // const status = String(row[statusColumnIndex2]).trim().replace(/[\r]/g, '');
+      const status = transactionStatusMap[orderID].trim().replace(/[\r]/g, '');
+
       const amount = typeof row[amountColumnIndex2] === 'number'
         ? row[amountColumnIndex2]
         : row[amountColumnIndex2]
           ? parseFloat(row[amountColumnIndex2].replace(/,/g, ''))
           : 0;
+          // console.log(orderID , amount)
       if (!orderDataMap[orderID]) {
-        orderDataMap[orderID] = { status1: null, status2: row[statusColumnIndex2], amount1: null, amount2: amount };
+        orderDataMap[orderID] = { status1: null, status2: status, amount1: null, amount2: amount };
       } else {
-        orderDataMap[orderID].status2 = row[statusColumnIndex2];
-        orderDataMap[orderID].amount2 += amount;
+        orderDataMap[orderID].status2 = status;
+        orderDataMap[orderID].amount2 = amount;
       }
     });
+
+    // Filter out unmatched rows between Data1 and Data3
+const unmatchedRows = data3 ? data3.filter((row1) => {
+  const orderID1 = String(row1[transactionColumnIndex3]).trim().replace(/^winzo-|-1$/g, '') || String(row1[transactionColumnalternateIndex3]).trim().replace(/"/g, '').replace(/^winzo-|-1$/g, '');
+  
+  // Check if the order ID in Data1 is not in orderDataMap (not matched with Data3)
+  return !orderDataMap[orderID1];
+}):[]
+
+
+    const data3Headers = data3 ? Object.keys(data3[0]):[]
     const csvFilePath1 = csvFile1.value; // Assuming csvFile2.value contains the file path
     const startIndex = csvFilePath1.lastIndexOf('\\') + 1; // Find the last backslash
     const endIndex = csvFilePath1.lastIndexOf('.'); // Find the last dot
@@ -306,13 +435,13 @@ function populateColumnOptions(headers, transactionColumnSelect, transactionColu
       row.amount1 = amount1 || '';
       row.amount2 = amount2 || '';
     } else if (status1) {
-      row.reconciliation_reason = `Order ID not found in ${fileName1}`;
+      row.reconciliation_reason = `Order ID not found in ${fileName2}`;
       row.status1 = status1;
       row.status2 = '';
       row.amount1 = amount1 || '';
       row.amount2 = '';
     } else {
-      row.reconciliation_reason = `Order ID not found in ${fileName2}`;
+      row.reconciliation_reason = `Order ID not found in ${fileName1}`;
       row.status1 = '';
       row.status2 = status2;
       row.amount1 = '';
@@ -322,11 +451,17 @@ function populateColumnOptions(headers, transactionColumnSelect, transactionColu
     reconciledData.push(row);
   });
   
- 
+  const workbook2 = new ExcelJS.Workbook();
   const worksheet = workbook.addWorksheet('Reconciliation');
   
   const headingRow = worksheet.addRow(['TRANSACTION_ID', 'Reconciliation Reason', 'Status 1', 'Status 2', 'Amount 1', 'Amount 2']);
+  const createCsvWriter = workbook2.addWorksheet('unmatched_data');
+  const headingRow2 = createCsvWriter.addRow(data3Headers)
+  const rowS = unmatchedRows.map((row) => Object.values(row));
+  createCsvWriter.addRows(rowS);
   
+
+
   const lastColumnIndex2 = headingRow.cellCount;
   for (let col = 1; col <= lastColumnIndex2; col++) {
     const cell = headingRow.getCell(col);
@@ -338,9 +473,7 @@ function populateColumnOptions(headers, transactionColumnSelect, transactionColu
   
    
   }
-  
-  
-  
+   
   
   worksheet.getColumn('E').numFmt = '#,##0.00';
   worksheet.getColumn('F').numFmt = '#,##0.00';
@@ -421,9 +554,7 @@ function populateColumnOptions(headers, transactionColumnSelect, transactionColu
        const summarySheet = workbook.addWorksheet('Summary');
   
   const headerRow = summarySheet.addRow(['Reconciliation Reason', 'Status', 'Count', 'Amount', 'Corresponding Status']);
-  // headerRow.font = { bold: true };
-  // headerRow.alignment = { horizontal: 'center' };
-  // headerRow.border = { bottom: { style: 'medium' } };
+  
   
   
   const lastColumnIndex = headerRow.cellCount;
@@ -730,4 +861,9 @@ function populateColumnOptions(headers, transactionColumnSelect, transactionColu
       const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       saveAs(blob, 'ReconciledData.xlsx');
     });
-  }   
+    
+    workbook2.xlsx.writeBuffer().then((buffer) => {
+      const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      saveAs(blob, 'Unmatched_data.xlsx');
+    });
+  }
