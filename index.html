@@ -5,7 +5,7 @@
     <script src="https://unpkg.com/exceljs/dist/exceljs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
-    <script src="./cashFree.js"></script>
+    
     <link rel="stylesheet" type="text/css" href="style.css" />
 
     <script type="text/javascript">
@@ -17,7 +17,7 @@
             var reader = new FileReader();
             reader.onload = function (e) {
               var table = document.createElement("table");
-              var rows = e.target.result.split("\n");
+              var rows = e.target.result.split("\r\n");
               for (var i = 0; i < rows.length; i++) {
                 var cells = rows[i].split(",");
                 if (cells.length > 1) {
@@ -52,26 +52,60 @@
         <label for="csvFile1">CSV File 1:</label>
         <input type="file" id="csvFile1" accept=".csv" />
         <label>Transaction ID:</label>
-        <select style="width: 100px" id="transactionColumn1"></select>
-        <select style="width: 100px" id="transactionColumnalternate1"></select>
+        <select style="width: 200px" id="transactionColumn1"></select>
+        <select style="width: 200px" id="transactionColumnalternate1"></select>
         <label>Status:</label>
-        <select style="width: 100px" id="statusColumn1"></select>
+        <select style="width: 200px" id="statusColumn1"></select>
         <label>Amount:</label>
-        <select style="width: 100px" id="amountColumn1"></select>
+        <select style="width: 200px" id="amountColumn1"></select>
+        <br>
+        <br>
+        <br>
+        <label for="csvFile3">CSV File 3:</label>
+        <input type="file" id="csvFile3" accept=".csv" />
+        <label for="transactionColumn3"
+          >Transaction ID Column (Third CSV):</label
+        >
+        <select style="width: 200px" id="transactionColumn3"></select>
+        <select style="width: 200px" id="transactionColumnalternate3"></select>
+
+        <label for="statusColumn3">Status Column (Third CSV):</label>
+        <select style="width: 200px" id="statusColumn3"></select>
+
+        <label for="amountColumn3">Amount Column (Third CSV):</label>
+        <select style="width: 200px" id="amountColumn3"></select>
       </div>
       <div class="containerFile">
         <label for="csvFile2">CSV File 2:</label>
         <input type="file" id="csvFile2" accept=".csv" />
         <label>Transaction ID:</label>
-        <select style="width: 100px" id="transactionColumn2"></select>
-        <select style="width: 100px" id="transactionColumnalternate2"></select>
+        <select style="width: 200px" id="transactionColumn2"></select>
+        <select style="width: 200px" id="transactionColumnalternate2"></select>
         <label>Status:</label>
-        <select style="width: 100px" id="statusColumn2"></select>
+        <select style="width: 200px" id="statusColumn2"></select>
         <label>Amount:</label>
-        <select style="width: 100px" id="amountColumn2"></select>
+        <select style="width: 200px" id="amountColumn2"></select>
+        <br>
+        <br>
+        <br>
+        <label for="csvFile4">CSV File 4:</label>
+        <input type="file" id="csvFile4" accept=".csv" />
+        <label for="transactionColumn4"
+          >Transaction ID Column (Third CSV):</label
+        >
+        <select style="width: 200px" id="transactionColumn4"></select>
+        <select style="width: 200px" id="transactionColumnalternate4"></select>
+
+        <label for="statusColumn4">Status Column (Third CSV):</label>
+        <select style="width: 200px" id="statusColumn4"></select>
+
+        <label for="amountColumn4">Amount Column (Third CSV):</label>
+        <select style="width: 200px" id="amountColumn4"></select>
       </div>
-      
     </div>
-    <div class="button"><button onclick="processFiles()">Process CSV Files</button></div>
+    <div class="button">
+      <button onclick="processFiles()">Process CSV Files</button>
+    </div>
   </body>
 </html>
+<script src="./cashFree.js"></script>
