@@ -1,124 +1,87 @@
 
+function createAndAppendOption(selectElement, header) {
+  const option = document.createElement('option');
+  option.value = header;
+  option.text = header;
+  selectElement.appendChild(option);
+}
 
-function populateColumnOptions(headers, transactionColumnSelect, transactionColumnSelectalternate, statusColumnSelect, amountColumnSelect) {
-    transactionColumnSelect.innerHTML = '';
-    transactionColumnSelectalternate.innerHTML = '';
-    statusColumnSelect.innerHTML = '';
-    amountColumnSelect.innerHTML = '';
+function populateColumnOptions(
+  headers, 
+  transactionColumnSelect, 
+  transactionColumnSelectalternate, 
+  statusColumnSelect, 
+  amountColumnSelect
+) {
+  // Clear existing options
+  [transactionColumnSelect, transactionColumnSelectalternate, statusColumnSelect, amountColumnSelect]
+    .forEach(select => select.innerHTML = '');
+
+  // Populate new options
+  headers.forEach(header => {
+    createAndAppendOption(transactionColumnSelect, header);
+    createAndAppendOption(transactionColumnSelectalternate, header);
+    createAndAppendOption(statusColumnSelect, header);
+    createAndAppendOption(amountColumnSelect, header);
+  });
+}
+
+let columnSelectors = {};
+
+function handleFileSelection(event) {
+  const fileNumber = event.target.getAttribute('data-file-number');
+  
+  const file = event.target.files[0];
+  const reader = new FileReader();
+  
+  columnSelectors[`transactionColumnSelect${fileNumber}`] = document.getElementById(`transactionColumn${fileNumber}`);
+    columnSelectors[`transactionColumnalternate${fileNumber}`] = document.getElementById(`transactionColumnalternate${fileNumber}`);
+    columnSelectors[`statusColumnSelect${fileNumber}`] = document.getElementById(`statusColumn${fileNumber}`);
+    columnSelectors[`amountColumnSelect${fileNumber}`] = document.getElementById(`amountColumn${fileNumber}`);
    
-  
-    headers.forEach((header, index) => {
-      const transactionOption = document.createElement('option');
-      const transactionOptionalternate = document.createElement('option');
-      const statusOption = document.createElement('option');
-      const amountOption = document.createElement('option');
-     
-      
-      transactionOption.value = header; // Use header value instead of index
-      transactionOption.text = header;
-      transactionOptionalternate.value = header; // Use header value instead of index
-      transactionOptionalternate.text = header;
-      statusOption.value = header; // Use header value instead of index
-      statusOption.text = header;
-      amountOption.value = header; // Use header value instead of index
-      amountOption.text = header;
-     
-
-      transactionColumnSelect.appendChild(transactionOption);
-      transactionColumnSelectalternate.appendChild(transactionOptionalternate);
-      statusColumnSelect.appendChild(statusOption);
-      amountColumnSelect.appendChild(amountOption);
-      
-    });
-  }
-  
-  
-  function handleFileSelection(event, fileNumber) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = function (e) {
+  reader.onload = e => {
       const contents = e.target.result;
       const data = parseCSV(contents);
       const headers = Object.keys(data[0]);
-      console.log(headers)
-  
-      if (fileNumber === 1) {
-        transactionColumnSelect1 = document.getElementById('transactionColumn1');
-        transactionColumnAlternate1 = document.getElementById('transactionColumnalternate1');
-        statusColumnSelect1 = document.getElementById('statusColumn1');
-        amountColumnSelect1 = document.getElementById('amountColumn1');
-       
-        populateColumnOptions(headers, transactionColumnSelect1, transactionColumnAlternate1, statusColumnSelect1, amountColumnSelect1);
-      } else if (fileNumber === 2) {
-        transactionColumnSelect2 = document.getElementById('transactionColumn2');
-        transactionColumnalternate2 = document.getElementById('transactionColumnalternate2');
-        statusColumnSelect2 = document.getElementById('statusColumn2');
-        amountColumnSelect2 = document.getElementById('amountColumn2');
-       
-        populateColumnOptions(headers, transactionColumnSelect2, transactionColumnalternate2, statusColumnSelect2, amountColumnSelect2);
-      }
-      else if (fileNumber === 3) {
-        transactionColumnSelect3 = document.getElementById('transactionColumn3');
-        transactionColumnalternate3 = document.getElementById('transactionColumnalternate3');
-        statusColumnSelect3 = document.getElementById('statusColumn3');
-        amountColumnSelect3 = document.getElementById('amountColumn3');
-       
-        populateColumnOptions(headers, transactionColumnSelect3, transactionColumnalternate3, statusColumnSelect3, amountColumnSelect3);
-      }
-      else if (fileNumber === 4) {
-        transactionColumnSelect4 = document.getElementById('transactionColumn4');
-        transactionColumnalternate4 = document.getElementById('transactionColumnalternate4');
-        statusColumnSelect4 = document.getElementById('statusColumn4');
-        amountColumnSelect4 = document.getElementById('amountColumn4');
-       
-        populateColumnOptions(headers, transactionColumnSelect4, transactionColumnalternate4, statusColumnSelect4, amountColumnSelect4);
-      }
-    };
-    
-    reader.readAsText(file);
-  }
- 
+      
+      populateColumnOptions(
+          headers,
+          document.getElementById(`transactionColumn${fileNumber}`),
+          document.getElementById(`transactionColumnalternate${fileNumber}`),
+          document.getElementById(`statusColumn${fileNumber}`),
+          document.getElementById(`amountColumn${fileNumber}`)
+      );
+  };
 
+  reader.readAsText(file);
+}
   
   document.addEventListener('DOMContentLoaded', function () {
-    transactionColumnSelect1 = document.getElementById('transactionColumn1');
-    transactionColumnalternate1 = document.getElementById('transactionColumnalternate1');
-    statusColumnSelect1 = document.getElementById('statusColumn1');
-    amountColumnSelect1 = document.getElementById('amountColumn1');
+    // transactionColumnSelect1 = document.getElementById('transactionColumn1');
+    // transactionColumnalternate1 = document.getElementById('transactionColumnalternate1');
+    // statusColumnSelect1 = document.getElementById('statusColumn1');
+    // amountColumnSelect1 = document.getElementById('amountColumn1');
    
-    transactionColumnSelect2 = document.getElementById('transactionColumn2');
-    transactionColumnalternate2 = document.getElementById('transactionColumnalternate2');
-    statusColumnSelect2 = document.getElementById('statusColumn2');
-    amountColumnSelect2 = document.getElementById('amountColumn2');
+    // transactionColumnSelect2 = document.getElementById('transactionColumn2');
+    // transactionColumnalternate2 = document.getElementById('transactionColumnalternate2');
+    // statusColumnSelect2 = document.getElementById('statusColumn2');
+    // amountColumnSelect2 = document.getElementById('amountColumn2');
 
-    transactionColumnSelect3 = document.getElementById('transactionColumn3');
-    transactionColumnalternate3 = document.getElementById('transactionColumnalternate3');
-    statusColumnSelect3 = document.getElementById('statusColumn3');
-    amountColumnSelect3 = document.getElementById('amountColumn3');
+    // transactionColumnSelect3 = document.getElementById('transactionColumn3');
+    // transactionColumnalternate3 = document.getElementById('transactionColumnalternate3');
+    // statusColumnSelect3 = document.getElementById('statusColumn3');
+    // amountColumnSelect3 = document.getElementById('amountColumn3');
 
-    transactionColumnSelect4 = document.getElementById('transactionColumn4');
-    transactionColumnalternate4 = document.getElementById('transactionColumnalternate4');
-    statusColumnSelect4 = document.getElementById('statusColumn4');
-    amountColumnSelect4 = document.getElementById('amountColumn4');
+    // transactionColumnSelect4 = document.getElementById('transactionColumn4');
+    // transactionColumnalternate4 = document.getElementById('transactionColumnalternate4');
+    // statusColumnSelect4 = document.getElementById('statusColumn4');
+    // amountColumnSelect4 = document.getElementById('amountColumn4');
     
     
-    const csvFile1 = document.getElementById('csvFile1');
-    const csvFile2 = document.getElementById('csvFile2');
-    const csvFile3 = document.getElementById('csvFile3');
-    const csvFile4 = document.getElementById('csvFile4');
+    const csvFiles = document.querySelectorAll('[data-file-number]');
     
-  
-    csvFile1.addEventListener('change', function (event) {
-      handleFileSelection(event, 1);
-    });
-    csvFile2.addEventListener('change', function (event) {
-      handleFileSelection(event, 2);
-    });
-    csvFile3.addEventListener('change', function (event) {
-      handleFileSelection(event, 3);
-    });
-    csvFile4.addEventListener('change', function (event) {
-      handleFileSelection(event, 4);
+    csvFiles.forEach(csvFile => {
+        csvFile.addEventListener('change', handleFileSelection);
     });
     
   });
@@ -126,71 +89,62 @@ function populateColumnOptions(headers, transactionColumnSelect, transactionColu
 
   
         function processFiles() {
+
+          function readAndParseCSV(file, callback) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const contents = e.target.result;
+                const parsedData = parseCSV(contents);
+                callback(parsedData);
+            };
+            reader.readAsText(file);
+        }
           const csvFile1 = document.getElementById('csvFile1').files[0];
           const csvFile2 = document.getElementById('csvFile2').files[0];
           const csvFile3 = document.getElementById('csvFile3').files[0];
   
-          const transactionColumnIndex1 = transactionColumnSelect1.value;
-          const transactionColumnalternateIndex1 = transactionColumnalternate1.value;
-    const statusColumnIndex1 = statusColumnSelect1.value;
-    const amountColumnIndex1 = amountColumnSelect1.value;
+          const transactionColumnIndex1 = columnSelectors.transactionColumnSelect1.value;
+          const transactionColumnalternateIndex1 =columnSelectors.transactionColumnalternate1.value;
+    const statusColumnIndex1 = columnSelectors.statusColumnSelect1.value;
+    const amountColumnIndex1 = columnSelectors.amountColumnSelect1.value;
     
-    const transactionColumnIndex2 = transactionColumnSelect2.value;
-    const transactionColumnalternateIndex2 = transactionColumnalternate2.value;
-    const statusColumnIndex2 = statusColumnSelect2.value;
-    const amountColumnIndex2 = amountColumnSelect2.value;
+    const transactionColumnIndex2 = columnSelectors.transactionColumnSelect2.value;
+    const transactionColumnalternateIndex2 = columnSelectors.transactionColumnalternate2.value;
+    const statusColumnIndex2 = columnSelectors.statusColumnSelect2.value;
+    const amountColumnIndex2 = columnSelectors.amountColumnSelect2.value;
    
-    const transactionColumnIndex3 = transactionColumnSelect3.value;
-    const transactionColumnalternateIndex3 = transactionColumnalternate3.value;
-    const statusColumnIndex3 = statusColumnSelect3.value;
-    const amountColumnIndex3 = amountColumnSelect3.value;
-   
+    let transactionColumnIndex3 = null;
+let transactionColumnalternateIndex3 = null;
+let statusColumnIndex3 = null;
+let amountColumnIndex3 = null;
+
+if (csvFile3) {
+    transactionColumnIndex3 = columnSelectors.transactionColumnSelect3.value;
+    transactionColumnalternateIndex3 = columnSelectors.transactionColumnalternate3.value;
+    statusColumnIndex3 = columnSelectors.statusColumnSelect3.value;
+    amountColumnIndex3 = columnSelectors.amountColumnSelect3.value;
+}
+  
   
     if (!transactionColumnIndex1 || !statusColumnIndex1 || !amountColumnIndex1 || !transactionColumnIndex2 || !statusColumnIndex2 || !amountColumnIndex2  ) {
       alert('Please select valid transaction, amount and status columns for both CSV files.');
       return;
     }
-          
-          const reader1 = new FileReader();
-    reader1.onload = function (e) {
-      const contents1 = e.target.result;
-      const data1 = parseCSV(contents1);
-     
-  
-      const reader2 = new FileReader();
-      reader2.onload = function (e) {
-        const contents2 = e.target.result;
-        const data2 = parseCSV(contents2);
-        if (csvFile3) {   
-      const reader3 = new FileReader();
-      reader3.onload = function (e) {
-        const contents3 = e.target.result;
-        const data3 = parseCSV(contents3);
-        
-        const headers1 = Object.keys(data1[0]);
-        const headers2 = Object.keys(data2[0]);
-        const headers3 = Object.keys(data3[0]);
-  
-        populateColumnOptions(headers1, transactionColumnSelect1, transactionColumnalternate1, statusColumnSelect1, amountColumnSelect1);
-        populateColumnOptions(headers2, transactionColumnSelect2, transactionColumnalternate2, statusColumnSelect2, amountColumnSelect2);
-        populateColumnOptions(headers3, transactionColumnSelect3, transactionColumnalternate3, statusColumnSelect3, amountColumnSelect3);
-  
-        // Process the data after reading both CSV files
-        processData(data1, data2, data3, transactionColumnIndex1, transactionColumnalternateIndex1, statusColumnIndex1, amountColumnIndex1, transactionColumnIndex2, transactionColumnalternateIndex2, statusColumnIndex2, amountColumnIndex2, transactionColumnIndex3, transactionColumnalternateIndex3, statusColumnIndex3, amountColumnIndex3,);
-     
-     
-      };
-      reader3.readAsText(csvFile3);;
-      }
-        else {
-          // Process the data without data3
-          processData(data1, data2, null, transactionColumnIndex1, transactionColumnalternateIndex1, statusColumnIndex1, amountColumnIndex1, transactionColumnIndex2, transactionColumnalternateIndex2, statusColumnIndex2, amountColumnIndex2, null, null, null, null);
-        }
-      }
-      reader2.readAsText(csvFile2);;
-    };
-    reader1.readAsText(csvFile1);;
-  }
+    readAndParseCSV(csvFile1, (data1) => {
+      readAndParseCSV(csvFile2, (data2) => {
+          if (csvFile3) {
+              readAndParseCSV(csvFile3, (data3) => {
+                  // Your processData function
+                  processData(data1, data2, data3 ,transactionColumnIndex1, transactionColumnalternateIndex1, statusColumnIndex1, amountColumnIndex1, transactionColumnIndex2, transactionColumnalternateIndex2, statusColumnIndex2, amountColumnIndex2, transactionColumnIndex3, transactionColumnalternateIndex3, statusColumnIndex3, amountColumnIndex3);
+              });
+          } else {
+              // Your processData function
+              processData(data1, data2, null ,transactionColumnIndex1, transactionColumnalternateIndex1, statusColumnIndex1, amountColumnIndex1, transactionColumnIndex2, transactionColumnalternateIndex2, statusColumnIndex2, amountColumnIndex2, null, null, null, null);
+          }
+      });
+  });
+}
+
 
   function parseCSV(csvContent) {
     const rows = csvContent.split('\n');
@@ -227,100 +181,77 @@ function populateColumnOptions(headers, transactionColumnSelect, transactionColu
     return data;
   }
   
+  const SUCCESS = "SUCCESS";
+const FAILED = "FAILED";
+const PENDING = "PENDING";
+
+function normalizeOrderID(orderID) {
+  return String(orderID).trim().replace(/^winzo-|-1$/g, '').replace(/'/g, '').replace(/"/g, '');
+}
   
-  
- async function processData(data1, data2, data3, transactionColumnIndex1, transactionColumnalternateIndex1, statusColumnIndex1, amountColumnIndex1, transactionColumnIndex2, transactionColumnalternateIndex2, statusColumnIndex2, amountColumnIndex2, transactionColumnIndex3, transactionColumnalternateIndex3, statusColumnIndex3, amountColumnIndex3,) {
+function normalizeStatus(status) {
+  const statusUpper = status.toUpperCase();
+  switch(statusUpper) {
+    case "FAILURE":
+    case "FAILED":
+    case "REVERSED":
+      return FAILED;
+    case "CAPTURED":
+    case "PROCESSED":
+      return SUCCESS;
+    case "CREATED":
+    case "PROCESSING":
+      return PENDING;
+    default:
+      return statusUpper;
+  }
+}
+ async function processData(data1, data2, data3, transactionColumnIndex1, transactionColumnalternateIndex1, statusColumnIndex1, amountColumnIndex1, transactionColumnIndex2, transactionColumnalternateIndex2, statusColumnIndex2, amountColumnIndex2, transactionColumnIndex3, transactionColumnalternateIndex3, statusColumnIndex3, amountColumnIndex3) {
     // Create a new workbook
     const workbook = new ExcelJS.Workbook();
    
 
     const matchedOrderIDs = new Set();
+    const transactionStatusMap = {}; // To keep track of transaction statuses    
 
     // Identify matched order IDs from data2
-    data2.forEach((row) => {
-      const orderID = String(row[transactionColumnIndex2]).trim().replace(/^winzo-|-1$/g, '').replace(/'/g, '').replace(/"/g, '');
-      matchedOrderIDs.add(orderID);
-    });
+  //   data2.forEach((row) => {
+  //     const orderID = normalizeOrderID(row[transactionColumnIndex2])
+  //     const status = normalizeStatus(row[statusColumnIndex2]);
+  //     matchedOrderIDs.add(orderID);
+  //     // Check if the transaction ID exists in the map
+  // if (transactionStatusMap[orderID]) {
+  //   // If the current status is "SUCCESS" or the existing status is "FAILED", update the status
+  //   if (status === "SUCCESS" || transactionStatusMap[orderID] === "USER_DROPPED") {
+  //     transactionStatusMap[orderID] = status;
+  //   }
+  // } else {
+  //   // Otherwise, set the status to the current status
+  //   transactionStatusMap[orderID] = status;
+  // }
+  //   });
     
     // Filter data3 to include only matched order IDs
     const matchedData3 = await data3 ? data3.filter((row) => {
-      const orderID = String(row[transactionColumnIndex3]).trim().replace(/'/g, '').replace(/"/g, '').replace(/^winzo-|-1$/g, '');
+      const orderID = normalizeOrderID(row[transactionColumnIndex3])
       return matchedOrderIDs.has(orderID);
     }):[]
         // Create a map of order IDs to statuses and amounts from both CSV files
         const orderDataMap = {};
   
-        data1.forEach((row) => {
-          const orderID = String(row[transactionColumnIndex1]).trim().replace(/'/g, '').replace(/"/g, '').replace(/^winzo-|-1$/g, ''); 
+    //     data1.forEach((row) => {
+    //       const orderID = normalizeOrderID(row[transactionColumnIndex1]) 
           
-          const status = String(row[statusColumnIndex1]).replace(/[\r]/g, '').trim();
+    //       const status = normalizeStatus(row[statusColumnIndex1]);
          
      
-          if (row[statusColumnIndex1] === "Failure") {
-        row[statusColumnIndex1] = "FAILED";
-      }
-          if (row[statusColumnIndex1] === "captured") {
-        row[statusColumnIndex1] = "SUCCESS";
-      }
-          if (row[statusColumnIndex1] === "created") {
-        row[statusColumnIndex1] = "PENDING";
-      }
-          if (row[statusColumnIndex1] === "FAILURE") {
-        row[statusColumnIndex1] = "FAILED";
-      }
-      if (row[statusColumnIndex1] === "failed") {
-        row[statusColumnIndex1] = "FAILED";
-      }
-
-      if (row[statusColumnIndex1] === "reversed") {
-        row[statusColumnIndex1] = "FAILED";
-      }
-      if (row[statusColumnIndex1] === "processed") {
-        row[statusColumnIndex1] = "SUCCESS";
-      }
-      if (row[statusColumnIndex1] === "processing") {
-        row[statusColumnIndex1] = "PENDING";
-      }
-    });
+    // });
   
-    data2.forEach((row) => {
-      const orderID = String(row[transactionColumnIndex2]).trim().replace(/"/g, '').replace(/'/g, '').replace(/^winzo-|-1$/g, '');
-      
-          const status = String(row[statusColumnIndex2]).trim().replace(/[\r]/g, '');
-         
      
-      if (row[statusColumnIndex2] === "Failure") {
-        row[statusColumnIndex2] = "FAILED";
-      }
-      if (row[statusColumnIndex2] === "captured") {
-        row[statusColumnIndex2] = "SUCCESS";
-      }
-          if (row[statusColumnIndex2] === "created") {
-        row[statusColumnIndex2] = "PENDING";
-      }
-      if (row[statusColumnIndex2] === "FAILURE") {
-        row[statusColumnIndex2] = "FAILED";
-      }
-      if (row[statusColumnIndex2] === "failed") {
-        row[statusColumnIndex2] = "FAILED";
-      }
-
-      if (row[statusColumnIndex2] === "reversed") {
-        row[statusColumnIndex2] = "FAILED";
-      }
-      if (row[statusColumnIndex2] === "processed") {
-        row[statusColumnIndex2] = "SUCCESS";
-      }
-      if (row[statusColumnIndex2] === "processing") {
-        row[statusColumnIndex2] = "PENDING";
-      }
-    });
-
-   
 
     matchedData3.forEach((row) => {
-      const orderID = String(row[transactionColumnIndex3]).trim().replace(/"/g, '').replace(/'/g, '').replace(/^winzo-|-1$/g, '');;
-      const status1 = String(row[statusColumnIndex3]).trim();
+      const orderID = normalizeOrderID(row[transactionColumnIndex3]) 
+      const status1 = normalizeStatus(row[statusColumnIndex3]);
       const amount1 = typeof row[amountColumnIndex3] === 'number'
         ? row[amountColumnIndex3]
         : row[amountColumnIndex3]
@@ -333,7 +264,7 @@ function populateColumnOptions(headers, transactionColumnSelect, transactionColu
     
    // Append matched data from data3 to data1
 const appendedRows = await data1.map((row) => {
-  const orderID = String(row[transactionColumnIndex1]).trim().replace(/^winzo-|-1$/g, '') || String(row[transactionColumnalternateIndex1]).trim().replace(/"/g, '').replace(/^winzo-|-1$/g, '');
+  const orderID = normalizeOrderID(row[transactionColumnIndex1]) || normalizeOrderID(row[transactionColumnalternateIndex1])
   if (orderDataMap[orderID]) {
     const { status1, amount1 } = orderDataMap[orderID];
     return {
@@ -348,41 +279,28 @@ const appendedRows = await data1.map((row) => {
 
   
     data1.forEach((row) => {
-      const orderID = String(row[transactionColumnIndex1]).trim().replace(/^winzo-|-1$/g, '') || String(row[transactionColumnalternateIndex1]).trim().replace(/"/g, '').replace(/^winzo-|-1$/g, '');
+      const orderID = normalizeOrderID(row[transactionColumnIndex1]) || normalizeOrderID(row[transactionColumnalternateIndex1])
+      const status = normalizeStatus(row[statusColumnIndex1]);
       const amount = typeof row[amountColumnIndex1] === 'number'
         ? row[amountColumnIndex1]
         : row[amountColumnIndex1]
           ? parseFloat(row[amountColumnIndex1].replace(/,/g, ''))
           : 0;
       if (!orderDataMap[orderID]) {
-        orderDataMap[orderID] = { status1: row[statusColumnIndex1], status2: null, amount1: amount, amount2: null };
+        orderDataMap[orderID] = { status1: status, status2: null, amount1: amount, amount2: null };
       } else {
         orderDataMap[orderID].amount1 += amount;
       }
     });
 
-    const transactionStatusMap = {}; // To keep track of transaction statuses
+    
 
-data2.forEach((row) => {
-  const orderID = String(row[transactionColumnIndex2]).trim().replace(/^winzo-|-1$/g, '') || String(row[transactionColumnalternateIndex2]).trim().replace(/"/g, '').replace(/^winzo-|-1$/g, '');
-  const status = String(row[statusColumnIndex2]).trim().replace(/[\r]/g, '');
 
-  // Check if the transaction ID exists in the map
-  if (transactionStatusMap[orderID]) {
-    // If the current status is "SUCCESS" or the existing status is "FAILED", update the status
-    if (status === "SUCCESS" || transactionStatusMap[orderID] === "USER_DROPPED") {
-      transactionStatusMap[orderID] = status;
-    }
-  } else {
-    // Otherwise, set the status to the current status
-    transactionStatusMap[orderID] = status;
-  }
-});
   
     data2.forEach((row) => {
-      const orderID = String(row[transactionColumnIndex2]).trim().replace(/^winzo-|-1$/g, '')  || String(row[transactionColumnalternateIndex2]).trim().replace(/"/g, '').replace(/^winzo-|-1$/g, '');
-      // const status = String(row[statusColumnIndex2]).trim().replace(/[\r]/g, '');
-      const status = transactionStatusMap[orderID].trim().replace(/[\r]/g, '');
+      const orderID = normalizeOrderID(row[transactionColumnIndex2]) || normalizeOrderID(row[transactionColumnalternateIndex2])
+     
+      const status = normalizeStatus(row[statusColumnIndex2])
 
       const amount = typeof row[amountColumnIndex2] === 'number'
         ? row[amountColumnIndex2]
@@ -390,11 +308,34 @@ data2.forEach((row) => {
           ? parseFloat(row[amountColumnIndex2].replace(/,/g, ''))
           : 0;
           // console.log(orderID , amount)
+
+          matchedOrderIDs.add(orderID);
+          // Check if the transaction ID exists in the map
+      if (transactionStatusMap[orderID]) {
+        // If the current status is "SUCCESS" or the existing status is "FAILED", update the status
+        if (status === "SUCCESS" || transactionStatusMap[orderID] === "USER_DROPPED") {
+          transactionStatusMap[orderID] = status;
+        }
+      } else {
+        // Otherwise, set the status to the current status
+        transactionStatusMap[orderID] = status;
+      }
+
       if (!orderDataMap[orderID]) {
         orderDataMap[orderID] = { status1: null, status2: status, amount1: null, amount2: amount };
       } else {
         orderDataMap[orderID].status2 = status;
         orderDataMap[orderID].amount2 = amount;
+      }
+
+      if (transactionStatusMap[orderID]) {
+        // If the current status is "SUCCESS" or the existing status is "FAILED", update the status
+        if (status === "SUCCESS" || transactionStatusMap[orderID] === "USER_DROPPED") {
+          transactionStatusMap[orderID] = status;
+        }
+      } else {
+        // Otherwise, set the status to the current status
+        transactionStatusMap[orderID] = status;
       }
     });
 
